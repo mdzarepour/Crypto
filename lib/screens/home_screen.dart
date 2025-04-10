@@ -1,20 +1,20 @@
 import 'package:crypto_pricing/components/constants/solid_colors.dart';
 import 'package:crypto_pricing/components/constants/strings.dart';
-import 'package:crypto_pricing/components/models/crypto_model.dart';
 import 'package:crypto_pricing/components/widgets/app_bar.dart';
 import 'package:crypto_pricing/components/widgets/list_tile_widget.dart';
+import 'package:crypto_pricing/models/crypto_model.dart';
 import 'package:crypto_pricing/services/dio_services.dart';
 import 'package:flutter/material.dart';
 
-class MainScreen extends StatefulWidget {
+class HomeScreen extends StatefulWidget {
   final List<CryptoModel> cryptoList;
-  const MainScreen({super.key, required this.cryptoList});
+  const HomeScreen({super.key, required this.cryptoList});
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController searchController = TextEditingController();
   FocusNode focusNode = FocusNode();
   late List<CryptoModel> cryptoList;

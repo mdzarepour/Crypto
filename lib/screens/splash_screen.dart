@@ -1,9 +1,10 @@
 import 'package:crypto_pricing/components/constants/strings.dart';
-import 'package:crypto_pricing/components/models/crypto_model.dart';
+import 'package:crypto_pricing/models/crypto_model.dart';
 import 'package:crypto_pricing/screens/home_screen.dart';
 import 'package:crypto_pricing/services/dio_services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -64,7 +65,7 @@ class _SplashScreenState extends State<SplashScreen> {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         Navigator.of(context).pushReplacement(
           CupertinoPageRoute(
-            builder: (context) => MainScreen(cryptoList: correntCryptoList),
+            builder: (context) => HomeScreen(cryptoList: correntCryptoList),
           ),
         );
       });

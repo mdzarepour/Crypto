@@ -1,5 +1,6 @@
 import 'package:crypto_pricing/components/constants/urls.dart';
-import 'package:crypto_pricing/components/models/crypto_model.dart';
+import 'package:crypto_pricing/models/crypto_model.dart';
+import 'package:dio/dio.dart';
 
 class DioServices {
   Future<List<CryptoModel>> fetchCryptoList() async {
