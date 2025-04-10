@@ -1,5 +1,4 @@
-import 'package:crypto/components/constants/solid_colors.dart';
-import 'package:crypto/screens/splash_screen.dart';
+import 'package:crypto_pricing/components/constants/solid_colors.dart';
 import 'package:flutter/material.dart';
 
 void main() {
