@@ -1,10 +1,9 @@
-import 'package:crypto/components/models/crypto_model.dart';
-import 'package:crypto/dio_services.dart/dio_services.dart';
-import 'package:crypto/screens/main_screen.dart';
+import 'package:crypto_pricing/components/constants/strings.dart';
+import 'package:crypto_pricing/components/models/crypto_model.dart';
+import 'package:crypto_pricing/screens/home_screen.dart';
+import 'package:crypto_pricing/services/dio_services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:crypto/components/constants/strings.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -17,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    futureCryptoList = DioServices().getData();
+    futureCryptoList = DioServices().fetchCryptoList();
   }
 
   @override
@@ -27,21 +26,18 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Center(
           child: FutureBuilder<List<CryptoModel>>(
             future: futureCryptoList,
-            builder: connectionStatus,
+            builder: _buildFutureBody,
           ),
         ),
       ),
     );
   }
 
-  Widget connectionStatus(context, snapshot) {
+  Widget _buildFutureBody(context, snapshot) {
     var textTheme = Theme.of(context).textTheme;
     if (snapshot.connectionState == ConnectionState.waiting) {
       return const Center(
-        child: SpinKitThreeBounce(
-          color: Colors.grey,
-          size: 20,
-        ),
+        child: SpinKitThreeBounce(color: Colors.grey, size: 20),
       );
     } else if (snapshot.hasError) {
       return Center(
@@ -49,38 +45,29 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Icon(Icons.error),
-            const SizedBox(
-              height: 40,
-            ),
+            const SizedBox(height: 40),
             const Text(Strings.connectionError),
-            const SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
             OutlinedButton(
               onPressed: () {
                 setState(() {
-                  futureCryptoList = DioServices().getData();
+                  futureCryptoList = DioServices().fetchCryptoList();
                 });
               },
-              child: Text(
-                Strings.retry,
-                style: textTheme.bodyMedium,
-              ),
-            )
+              child: Text(Strings.retry, style: textTheme.bodyMedium),
+            ),
           ],
         ),
       );
     } else if (snapshot.hasData) {
       List<CryptoModel> correntCryptoList = snapshot.data!;
-      WidgetsBinding.instance.addPostFrameCallback(
-        (_) {
-          Navigator.of(context).pushReplacement(
-            CupertinoPageRoute(
-              builder: (context) => MainScreen(cryptoList: correntCryptoList),
-            ),
-          );
-        },
-      );
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Navigator.of(context).pushReplacement(
+          CupertinoPageRoute(
+            builder: (context) => MainScreen(cryptoList: correntCryptoList),
+          ),
+        );
+      });
       return const SizedBox.shrink();
     } else {
       return const SizedBox.shrink();

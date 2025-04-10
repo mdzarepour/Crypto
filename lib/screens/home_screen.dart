@@ -1,9 +1,9 @@
-import 'package:crypto/components/constants/solid_colors.dart';
-import 'package:crypto/components/constants/strings.dart';
-import 'package:crypto/components/models/crypto_model.dart';
-import 'package:crypto/components/widgets/app_bar.dart';
-import 'package:crypto/components/widgets/list_tile_widget.dart';
-import 'package:crypto/dio_services.dart/dio_services.dart';
+import 'package:crypto_pricing/components/constants/solid_colors.dart';
+import 'package:crypto_pricing/components/constants/strings.dart';
+import 'package:crypto_pricing/components/models/crypto_model.dart';
+import 'package:crypto_pricing/components/widgets/app_bar.dart';
+import 'package:crypto_pricing/components/widgets/list_tile_widget.dart';
+import 'package:crypto_pricing/services/dio_services.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatefulWidget {
@@ -29,9 +29,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const AppBarWidget(),
-      ),
+      appBar: AppBar(title: const AppBarWidget()),
       body: Center(
         child: Column(
           children: [
@@ -41,7 +39,7 @@ class _MainScreenState extends State<MainScreen> {
                 onChanged: (value) {
                   String input = searchController.text;
 
-                  _search(input);
+                  _searchInCyptoList(input);
                 },
                 focusNode: focusNode,
                 maxLength: 20,
@@ -49,16 +47,14 @@ class _MainScreenState extends State<MainScreen> {
                 controller: searchController,
               ),
             ),
-            const SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
             Expanded(
               child: RefreshIndicator(
                 onRefresh: () async {
-                  await _refreshList(cryptoList);
-                  _showSnackBar(listStatus == false
-                      ? Strings.refreshed
-                      : Strings.tryAgain);
+                  await _refreshCryptoList(cryptoList);
+                  _showSnackBar(
+                    listStatus == false ? Strings.refreshed : Strings.tryAgain,
+                  );
                 },
                 child: GestureDetector(
                   onTap: () {
@@ -68,20 +64,21 @@ class _MainScreenState extends State<MainScreen> {
                     itemCount: cryptoList.length,
                     itemBuilder: (context, index) {
                       return ListTileWidget(
-                          index: index,
-                          changePercent24Hr: cryptoList[index]
-                              .changePercent24Hr
-                              .toString()
-                              .substring(0, 10),
-                          icon: _getChangesIcon(
-                              cryptoList[index].changePercent24Hr, index),
-                          name: cryptoList[index].name,
-                          priceUsd: cryptoList[index]
-                              .priceUsd
-                              .toString()
-                              .substring(0, 12),
-                          rank: cryptoList[index].rank.toString(),
-                          symbol: cryptoList[index].symbol);
+                        index: index,
+                        changePercent24Hr: cryptoList[index].changePercent24Hr
+                            .toString()
+                            .substring(0, 10),
+                        icon: _getListTileIcon(
+                          cryptoList[index].changePercent24Hr,
+                          index,
+                        ),
+                        name: cryptoList[index].name,
+                        priceUsd: cryptoList[index].priceUsd
+                            .toString()
+                            .substring(0, 12),
+                        rank: cryptoList[index].rank.toString(),
+                        symbol: cryptoList[index].symbol,
+                      );
                     },
                   ),
                 ),
@@ -93,17 +90,11 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
-  Icon _getChangesIcon(double changes, int index) {
+  Icon _getListTileIcon(double changes, int index) {
     if (changes < 0) {
-      return const Icon(
-        Icons.arrow_downward,
-        color: SolidColors.redColor,
-      );
+      return const Icon(Icons.arrow_downward, color: SolidColors.redColor);
     } else {
-      return Icon(
-        Icons.arrow_upward,
-        color: SolidColors.greenColor,
-      );
+      return Icon(Icons.arrow_upward, color: SolidColors.greenColor);
     }
   }
 
@@ -115,16 +106,15 @@ class _MainScreenState extends State<MainScreen> {
         elevation: 4,
         margin: const EdgeInsets.only(bottom: 10, right: 8, left: 8),
         duration: const Duration(seconds: 1),
-        content: Center(
-          child: Text(message),
-        ),
+        content: Center(child: Text(message)),
       ),
     );
   }
+  //TODO change this logic for detect if the list is changed or not
 
-  _refreshList(List<CryptoModel> oldList) async {
+  _refreshCryptoList(List<CryptoModel> oldList) async {
     int counter = 0;
-    List<CryptoModel> newList = await DioServices().getData();
+    List<CryptoModel> newList = await DioServices().fetchCryptoList();
     for (int i = 0; i < oldList.length; i++) {
       if (oldList[i].priceUsd.toString() != (newList[i].priceUsd.toString())) {
         counter++;
@@ -140,17 +130,16 @@ class _MainScreenState extends State<MainScreen> {
     });
   }
 
-  _search(String input) {
+  _searchInCyptoList(String input) {
     List<CryptoModel> searchList = [];
-    searchList = widget.cryptoList.where(
-      (element) {
-        if (element.name.toLowerCase().contains(input.toLowerCase())) {
-          return true;
-        } else {
-          return false;
-        }
-      },
-    ).toList();
+    searchList =
+        widget.cryptoList.where((element) {
+          if (element.name.toLowerCase().contains(input.toLowerCase())) {
+            return true;
+          } else {
+            return false;
+          }
+        }).toList();
 
     setState(() {
       cryptoList = searchList;

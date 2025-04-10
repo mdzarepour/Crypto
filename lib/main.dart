@@ -1,29 +1,30 @@
 import 'package:crypto_pricing/components/constants/solid_colors.dart';
+import 'package:crypto_pricing/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const Application());
+  runApp(const CryptoApp());
 }
 
-class Application extends StatelessWidget {
-  const Application({super.key});
+class CryptoApp extends StatelessWidget {
+  const CryptoApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        inputDecorationTheme: inputTheme(),
-        appBarTheme: appBarTheme(),
+        inputDecorationTheme: _getInputTheme(),
+        appBarTheme: _getAppBarTheme(),
         scaffoldBackgroundColor: SolidColors.backgroundColor,
-        outlinedButtonTheme: borderTheme(),
-        iconTheme: iconTheme(),
-        textTheme: textTheme(),
+        outlinedButtonTheme: _getBorderTheme(),
+        iconTheme: _getIconTheme(),
+        textTheme: _getTextTheme(),
       ),
       debugShowCheckedModeBanner: false,
       home: const SplashScreen(),
     );
   }
 
-  InputDecorationTheme inputTheme() {
+  InputDecorationTheme _getInputTheme() {
     return InputDecorationTheme(
       focusedBorder: OutlineInputBorder(
         borderRadius: const BorderRadius.all(Radius.circular(9)),
@@ -35,7 +36,7 @@ class Application extends StatelessWidget {
     );
   }
 
-  TextTheme textTheme() {
+  TextTheme _getTextTheme() {
     return TextTheme(
       bodyMedium: const TextStyle(color: SolidColors.white, fontSize: 20),
       bodyLarge: const TextStyle(color: SolidColors.white, fontSize: 20),
@@ -44,11 +45,11 @@ class Application extends StatelessWidget {
     );
   }
 
-  IconThemeData iconTheme() {
+  IconThemeData _getIconTheme() {
     return const IconThemeData(size: 25, color: SolidColors.greyColor);
   }
 
-  OutlinedButtonThemeData borderTheme() {
+  OutlinedButtonThemeData _getBorderTheme() {
     return OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
         fixedSize: const Size(150, 30),
@@ -59,7 +60,7 @@ class Application extends StatelessWidget {
     );
   }
 
-  AppBarTheme appBarTheme() {
+  AppBarTheme _getAppBarTheme() {
     return AppBarTheme(
       scrolledUnderElevation: 0,
       backgroundColor: SolidColors.backgroundColor,
