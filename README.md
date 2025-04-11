@@ -1,10 +1,8 @@
-# Mobile app for wger
+# Crypto pricing app
 
-wger is a free, open-source flutter application that manages and tracks/logs
-your exercises and personal workouts, weight, and diet plans. This is the mobile
-app written with Flutter, it talks via REST with the main server.
+Crypto is a little flutter app without state management package ,
+just for practice api injection with coincap.com free api
 
-If you want to contribute, hop on the Discord server and say hi!
 
 
 <p align="center">
@@ -15,49 +13,32 @@ If you want to contribute, hop on the Discord server and say hi!
 <img src="https://github.com/user-attachments/assets/c2cd40e8-46f0-488e-86a1-5821391cf619" width="200" alt="" />
 </p>
 
-## Installation
 
-[<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
-alt="Get it on Google Play"
-height="80">](https://play.google.com/store/apps/details?id=de.wger.flutter)
-[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
-alt="Get it on F-Droid"
-height="80">](https://f-droid.org/packages/de.wger.flutter/)
+## how to test ?
 
-## Developing and contributing
-
-Our goal is to build an awesome and flexible fitness and nutrition manager,
-along with a comprehensive list of exercises and ingredients, all released
-under a free license.
-
-For this, we’d love your help! Whether it’s code, translations, exercises or
-reporting issues and ideas, check out our
-[contribution guide](https://wger.readthedocs.io/en/latest/contributing.html)
-to get started.
-
-A huge thank you to everyone who has contributed so far! ❤️ See the full list
-in [AUTHORS.md](AUTHORS.md).
+add remote or download source then :
 
 **TLDR**
 
 ```bash
-flutter run
+flutter pub get
 ```
+```bash
+flutter pub get
+```
+```bash
+flutter pub run
+```
+used api :
 
-This is a regular flutter application, so there's no magic. You will need a backend
-for this, so feel free to use the test server for this (the db is reset daily):
+* website: `CoinCap.io`
+* api url: `https://rest.coincap.io/v3/assets?apiKey=${apiKey}`
 
-* URL: `https://wger-master.rge.uber.space`
-* username: `user`
-* password: `flutteruser`
+used package in Crypto :
 
-## Translation
-
-Translate the app to your language on [Weblate](https://hosted.weblate.org/engage/wger/).
-
-[![translation status](https://hosted.weblate.org/widgets/wger/-/mobile/multi-blue.svg)](https://hosted.weblate.org/engage/wger/)
-
-
+* Dio: `dio: ^5.8.0+1`
+* SpinKit: `flutter_spinkit: ^5.2.1`
+* Luncher Icon: `flutter_launcher_icons: ^0.14.3`
 
 
 
