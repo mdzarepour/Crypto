@@ -11,6 +11,7 @@ class CryptoApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Crypto',
       theme: ThemeData(
         scaffoldBackgroundColor: SolidColors.backgroundColor,
         inputDecorationTheme: _getInputTheme(),
