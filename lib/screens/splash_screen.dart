@@ -1,3 +1,4 @@
+import 'package:crypto_pricing/components/constants/solid_colors.dart';
 import 'package:crypto_pricing/components/constants/strings.dart';
 import 'package:crypto_pricing/models/crypto_model.dart';
 import 'package:crypto_pricing/screens/home_screen.dart';
@@ -36,19 +37,15 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Widget _buildFutureBody(context, snapshot) {
     var textTheme = Theme.of(context).textTheme;
-    if (snapshot.connectionState == ConnectionState.waiting) {
-      return const Center(
-        child: SpinKitThreeBounce(color: Colors.grey, size: 20),
-      );
-    } else if (snapshot.hasError) {
+    // error condition
+    if (snapshot.hasError) {
       return Center(
         child: Column(
+          spacing: 30,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Icon(Icons.error),
-            const SizedBox(height: 40),
             const Text(Strings.connectionError),
-            const SizedBox(height: 20),
             OutlinedButton(
               onPressed: () {
                 setState(() {
@@ -60,6 +57,7 @@ class _SplashScreenState extends State<SplashScreen> {
           ],
         ),
       );
+      // accurate condition =>
     } else if (snapshot.hasData) {
       List<CryptoModel> correntCryptoList = snapshot.data!;
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -69,9 +67,10 @@ class _SplashScreenState extends State<SplashScreen> {
           ),
         );
       });
-      return const SizedBox.shrink();
+      return SizedBox.shrink();
+      // waiting condition =>
     } else {
-      return const SizedBox.shrink();
+      return SpinKitThreeBounce(color: SolidColors.greyColor, size: 15);
     }
   }
 }
