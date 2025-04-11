@@ -30,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void dispose() {
     super.dispose();
     focusNode.dispose();
+    searchController.dispose();
   }
 
   @override
