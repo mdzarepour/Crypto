@@ -27,12 +27,14 @@ add remote or download source then :
 flutter pub get
 ```
 ```bash
-flutter pub get
+flutter pub upgrade
 ```
 ```bash
 flutter pub run
 ```
 used api :
+
+<hr>
 
 * website: `CoinCap.io`
 * api url: `https://rest.coincap.io/v3/assets?apiKey=${apiKey}`
