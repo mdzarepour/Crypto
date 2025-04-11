@@ -32,12 +32,14 @@ flutter pub upgrade
 ```bash
 flutter pub run
 ```
-used api :
-
 <hr>
+
+used api :
 
 * website: `CoinCap.io`
 * api url: `https://rest.coincap.io/v3/assets?apiKey=${apiKey}`
+
+<hr>
 
 used package in Crypto :
 
