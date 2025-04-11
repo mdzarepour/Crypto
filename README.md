@@ -1,16 +1,20 @@
 # Crypto pricing app
 
-Crypto is a little flutter app without state management package ,
+Crypto is a little flutter app without state management package ,<br>
 just for practice api injection with coincap.com free api
-
-
+<br>
+<br>
 
 <p align="center">
+
 <img src="https://github.com/user-attachments/assets/d04712db-a51b-414e-986b-d5239ba0f8ec" width="200" alt="" />
+
 
 <img src="https://github.com/user-attachments/assets/c838748f-7d51-4478-832f-9e819ecd6d1d" width="200" alt="" />
 
+  
 <img src="https://github.com/user-attachments/assets/c2cd40e8-46f0-488e-86a1-5821391cf619" width="200" alt="" />
+
 </p>
 
 
@@ -18,7 +22,6 @@ just for practice api injection with coincap.com free api
 
 add remote or download source then :
 
-**TLDR**
 
 ```bash
 flutter pub get
