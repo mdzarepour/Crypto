@@ -25,6 +25,7 @@ class CryptoApp extends StatelessWidget {
     );
   }
 
+  // SnackBarThem --------->
   SnackBarThemeData _getSnackBarTheme() {
     return SnackBarThemeData(
       backgroundColor: SolidColors.greenColor,
@@ -33,6 +34,7 @@ class CryptoApp extends StatelessWidget {
     );
   }
 
+  // TextFieldThme --------->
   InputDecorationTheme _getInputTheme() {
     return InputDecorationTheme(
       focusedBorder: OutlineInputBorder(
@@ -45,6 +47,7 @@ class CryptoApp extends StatelessWidget {
     );
   }
 
+  // TextTheme --------->
   TextTheme _getTextTheme() {
     return TextTheme(
       bodyMedium: const TextStyle(color: SolidColors.white, fontSize: 20),
@@ -54,10 +57,12 @@ class CryptoApp extends StatelessWidget {
     );
   }
 
+  // IconTheme --------->
   IconThemeData _getIconTheme() {
     return const IconThemeData(size: 25, color: SolidColors.greyColor);
   }
 
+  // ButtonTheme --------->
   OutlinedButtonThemeData _getButtonTheme() {
     return OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
@@ -69,6 +74,7 @@ class CryptoApp extends StatelessWidget {
     );
   }
 
+  // AppBar theme --------->
   AppBarTheme _getAppBarTheme() {
     return AppBarTheme(
       scrolledUnderElevation: 0,

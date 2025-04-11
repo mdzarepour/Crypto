@@ -27,18 +27,26 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    focusNode.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const AppBarWidget()),
       body: Center(
         child: Column(
           children: [
+            // search textField =>
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
               child: _buildSearchTextField(),
             ),
             const SizedBox(height: 20),
             Expanded(
+              //to refresh listView data =>
               child: RefreshIndicator(
                 onRefresh: () async {
                   await _refreshCryptoList(cryptoList);
@@ -46,6 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     listStatus == false ? Strings.refreshed : Strings.tryAgain,
                   );
                 },
+                //contain all listView =>
                 child: GestureDetector(
                   onTap: () => focusNode.unfocus(),
                   child: _buildMainListView(),
@@ -58,6 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  // the textField for search crypto =>
   TextField _buildSearchTextField() {
     return TextField(
       onChanged: (value) {
@@ -71,6 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  // the listView contains all cryptos =>
   ListView _buildMainListView() {
     return ListView.builder(
       itemCount: cryptoList.length,
@@ -90,6 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  // used in ListTile widget =>
   Icon _getListTileIcon(double changes, int index) {
     if (changes < 0) {
       return const Icon(Icons.arrow_downward, color: SolidColors.redColor);
@@ -98,6 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  // used in refreshIndicator =>
   void _showSnackBar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -108,6 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  // use in refreshIndicator =>
   _refreshCryptoList(List<CryptoModel> oldList) async {
     List<CryptoModel> freshList = await DioServices().fetchCryptoList();
     listStatus = oldList.asMap().entries.every(
@@ -119,6 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  // used in textField =>
   _searchInCyptoList(String input) {
     setState(() {
       cryptoList =

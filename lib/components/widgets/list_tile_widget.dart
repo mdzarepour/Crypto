@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../constants/solid_colors.dart';
 
 class ListTileWidget extends StatelessWidget {
@@ -27,15 +26,13 @@ class ListTileWidget extends StatelessWidget {
     var textTheme = Theme.of(context).textTheme;
     return ListTile(
       leadingAndTrailingTextStyle: textTheme.bodySmall,
-      leading: Text(
-        rank,
-        style: textTheme.bodyMedium,
-      ),
+      // contains (rank) --------->
+      leading: Text(rank, style: textTheme.bodyMedium),
+      // containst (symbold) --------->
       subtitle: Text(symbol),
-      title: Text(
-        name,
-        style: textTheme.bodyMedium,
-      ),
+      // contains (name) --------->
+      title: Text(name, style: textTheme.bodyMedium),
+      // contains (price,changes,icon) --------->
       trailing: SizedBox(
         width: 150,
         height: double.infinity,
@@ -47,24 +44,26 @@ class ListTileWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
+                Text(priceUsd),
                 Text(
-                  priceUsd,
-                ),
-                Text(
-                    style: TextStyle(
-                      color: _getChangePercent24HrColor(
-                          double.parse(changePercent24Hr), index),
+                  style: TextStyle(
+                    color: _getChangePercent24HrColor(
+                      double.parse(changePercent24Hr),
+                      index,
                     ),
-                    changePercent24Hr)
+                  ),
+                  changePercent24Hr,
+                ),
               ],
             ),
-            icon
+            icon,
           ],
         ),
       ),
     );
   }
 
+  // used in ListTile trailing =>
   Color? _getChangePercent24HrColor(double changes, int index) {
     if (changes < 0) {
       return SolidColors.redColor;
