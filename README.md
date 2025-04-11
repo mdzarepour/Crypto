@@ -8,11 +8,11 @@ If you want to contribute, hop on the Discord server and say hi!
 
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/wger-project/flutter/master/fastlane/metadata/android/en-US/images/phoneScreenshots/01%20-%20dashboard.png" width="200" alt="" />
+<img src="https://github.com/user-attachments/assets/d04712db-a51b-414e-986b-d5239ba0f8ec" width="200" alt="" />
 
-<img src="https://raw.githubusercontent.com/wger-project/flutter/master/fastlane/metadata/android/en-US/images/phoneScreenshots/04%20-%20measurements.png" width="200" alt="" />
+<img src="https://github.com/user-attachments/assets/c838748f-7d51-4478-832f-9e819ecd6d1d" width="200" alt="" />
 
-<img src="https://raw.githubusercontent.com/wger-project/flutter/master/fastlane/metadata/android/en-US/images/phoneScreenshots/05%20-%20nutritional%20plan.png" width="200" alt="" />
+<img src="https://github.com/user-attachments/assets/c2cd40e8-46f0-488e-86a1-5821391cf619" width="200" alt="" />
 </p>
 
 ## Installation
@@ -56,4 +56,16 @@ for this, so feel free to use the test server for this (the db is reset daily):
 Translate the app to your language on [Weblate](https://hosted.weblate.org/engage/wger/).
 
 [![translation status](https://hosted.weblate.org/widgets/wger/-/mobile/multi-blue.svg)](https://hosted.weblate.org/engage/wger/)
+
+
+
+
+
+
+
+
+
+
+
+
 
