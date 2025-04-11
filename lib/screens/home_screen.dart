@@ -35,17 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
-              child: TextField(
-                onChanged: (value) {
-                  String input = searchController.text;
-
-                  _searchInCyptoList(input);
-                },
-                focusNode: focusNode,
-                maxLength: 20,
-                cursorColor: SolidColors.greenColor,
-                controller: searchController,
-              ),
+              child: _buildSearchTextField(),
             ),
             const SizedBox(height: 20),
             Expanded(
@@ -57,36 +47,46 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 },
                 child: GestureDetector(
-                  onTap: () {
-                    focusNode.unfocus();
-                  },
-                  child: ListView.builder(
-                    itemCount: cryptoList.length,
-                    itemBuilder: (context, index) {
-                      return ListTileWidget(
-                        index: index,
-                        changePercent24Hr: cryptoList[index].changePercent24Hr
-                            .toString()
-                            .substring(0, 10),
-                        icon: _getListTileIcon(
-                          cryptoList[index].changePercent24Hr,
-                          index,
-                        ),
-                        name: cryptoList[index].name,
-                        priceUsd: cryptoList[index].priceUsd
-                            .toString()
-                            .substring(0, 12),
-                        rank: cryptoList[index].rank.toString(),
-                        symbol: cryptoList[index].symbol,
-                      );
-                    },
-                  ),
+                  onTap: () => focusNode.unfocus(),
+                  child: _buildMainListView(),
                 ),
               ),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  TextField _buildSearchTextField() {
+    return TextField(
+      onChanged: (value) {
+        String input = searchController.text;
+        _searchInCyptoList(input);
+      },
+      focusNode: focusNode,
+      maxLength: 20,
+      cursorColor: SolidColors.greenColor,
+      controller: searchController,
+    );
+  }
+
+  ListView _buildMainListView() {
+    return ListView.builder(
+      itemCount: cryptoList.length,
+      itemBuilder: (context, index) {
+        return ListTileWidget(
+          index: index,
+          changePercent24Hr: cryptoList[index].changePercent24Hr
+              .toString()
+              .substring(0, 10),
+          icon: _getListTileIcon(cryptoList[index].changePercent24Hr, index),
+          name: cryptoList[index].name,
+          priceUsd: cryptoList[index].priceUsd.toString().substring(0, 12),
+          rank: cryptoList[index].rank.toString(),
+          symbol: cryptoList[index].symbol,
+        );
+      },
     );
   }
 
@@ -101,48 +101,33 @@ class _HomeScreenState extends State<HomeScreen> {
   void _showSnackBar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        backgroundColor: SolidColors.greenColor,
-        behavior: SnackBarBehavior.floating,
-        elevation: 4,
         margin: const EdgeInsets.only(bottom: 10, right: 8, left: 8),
         duration: const Duration(seconds: 1),
         content: Center(child: Text(message)),
       ),
     );
   }
-  //TODO change this logic for detect if the list is changed or not
 
   _refreshCryptoList(List<CryptoModel> oldList) async {
-    int counter = 0;
-    List<CryptoModel> newList = await DioServices().fetchCryptoList();
-    for (int i = 0; i < oldList.length; i++) {
-      if (oldList[i].priceUsd.toString() != (newList[i].priceUsd.toString())) {
-        counter++;
-      }
-    }
-    if (counter == 0) {
-      listStatus = true;
-    } else if (counter > 0) {
-      listStatus = false;
-    }
+    List<CryptoModel> freshList = await DioServices().fetchCryptoList();
+    listStatus = oldList.asMap().entries.every(
+      (e) =>
+          e.value.priceUsd.toString() == freshList[e.key].priceUsd.toString(),
+    );
     setState(() {
-      cryptoList = newList;
+      cryptoList = freshList;
     });
   }
 
   _searchInCyptoList(String input) {
-    List<CryptoModel> searchList = [];
-    searchList =
-        widget.cryptoList.where((element) {
-          if (element.name.toLowerCase().contains(input.toLowerCase())) {
-            return true;
-          } else {
-            return false;
-          }
-        }).toList();
-
     setState(() {
-      cryptoList = searchList;
+      cryptoList =
+          widget.cryptoList
+              .where(
+                (element) =>
+                    element.name.toLowerCase().contains(input.toLowerCase()),
+              )
+              .toList();
     });
   }
 }

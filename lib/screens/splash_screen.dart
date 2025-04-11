@@ -37,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Widget _buildFutureBody(context, snapshot) {
     var textTheme = Theme.of(context).textTheme;
-    // error condition
+    // error condition ---------------->
     if (snapshot.hasError) {
       return Center(
         child: Column(
@@ -57,7 +57,7 @@ class _SplashScreenState extends State<SplashScreen> {
           ],
         ),
       );
-      // accurate condition =>
+      // accurate condition ---------------->
     } else if (snapshot.hasData) {
       List<CryptoModel> correntCryptoList = snapshot.data!;
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -68,7 +68,7 @@ class _SplashScreenState extends State<SplashScreen> {
         );
       });
       return SizedBox.shrink();
-      // waiting condition =>
+      // waiting condition ---------------->
     } else {
       return SpinKitThreeBounce(color: SolidColors.greyColor, size: 15);
     }

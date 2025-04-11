@@ -12,15 +12,24 @@ class CryptoApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
+        scaffoldBackgroundColor: SolidColors.backgroundColor,
         inputDecorationTheme: _getInputTheme(),
         appBarTheme: _getAppBarTheme(),
-        scaffoldBackgroundColor: SolidColors.backgroundColor,
-        outlinedButtonTheme: _getBorderTheme(),
+        outlinedButtonTheme: _getButtonTheme(),
         iconTheme: _getIconTheme(),
         textTheme: _getTextTheme(),
+        snackBarTheme: _getSnackBarTheme(),
       ),
       debugShowCheckedModeBanner: false,
       home: const SplashScreen(),
+    );
+  }
+
+  SnackBarThemeData _getSnackBarTheme() {
+    return SnackBarThemeData(
+      backgroundColor: SolidColors.greenColor,
+      behavior: SnackBarBehavior.floating,
+      elevation: 4,
     );
   }
 
@@ -49,7 +58,7 @@ class CryptoApp extends StatelessWidget {
     return const IconThemeData(size: 25, color: SolidColors.greyColor);
   }
 
-  OutlinedButtonThemeData _getBorderTheme() {
+  OutlinedButtonThemeData _getButtonTheme() {
     return OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
         fixedSize: const Size(150, 30),
