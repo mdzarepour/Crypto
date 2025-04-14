@@ -30,7 +30,7 @@ flutter pub get
 flutter pub upgrade
 ```
 ```bash
-flutter pub run
+flutter run
 ```
 <hr>
 
